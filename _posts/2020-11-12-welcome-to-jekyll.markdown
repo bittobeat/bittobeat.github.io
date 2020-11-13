@@ -2,9 +2,13 @@
 layout: post
 title:  "Welcome to Jekyll!"
 date:   2020-11-12 18:21:57 -0500
-categories: jekyll update
+excerpt_separator: <!-- more -->
+banner: /assets/w3_template/woods.jpg
+banner_alt: Woods
 ---
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
+
+<!-- more -->
 
 Jekyll requires blog post files to be named according to the following format:
 

@@ -25,30 +25,19 @@ and is wrapped around the whole page content, except for the footer in this exam
 <!-- Grid -->
 <div class="w3-row">
 
-<!-- Blog entries -->
+<!-- Info Box -->
 <div class="w3-col l8 s12">
-  {% for post in site.posts %}
   <div class="w3-card-4 w3-margin w3-white">
-    <img src="{{ site.baseurl }}{{ post.banner }}" alt="{{ post.banner_alt }}" style="width:100%">
+    <img src="{{ site.baseurl }}{{ page.banner }}" alt="{{ page.banner_alt }}" style="width:100%">
     <div class="w3-container">
-      <h3><b>{{ post.title }}</b></h3>
-      <h5><span class="w3-opacity">{{ post.date | date: '%B %d, %Y' }}</span></h5>
+      <h3><b>{{ page.title }}</b></h3>
     </div>
 
     <div class="w3-container">
-      <p>{{ post.excerpt }}</p>
-      <div class="w3-row">
-        <div class="w3-col m8 s12">
-          <p>
-            <a href="{{ post.url }}">
-              <button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button>
-            </a>
-          </p>
-        </div>
-      </div>
+      {{ content }}
     </div>
   </div>
-  {% endfor %}
+<!-- END BLOG ENTRIES -->
 </div>
 
 <!-- Introduction menu -->
