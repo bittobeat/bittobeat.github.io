@@ -1,0 +1,25 @@
+---
+layout: post
+title:  "Enemy AI, Part 1"
+date:   2020-11-22 23:21:15 -0500
+excerpt_separator: <!-- more -->
+banner: /assets/bit-to-beat_enemy-ai-a03.gif
+---
+**Written by Jiayan Li**
+
+### Current Enemy AI
+
+&nbsp;&nbsp;&nbsp;&nbsp;The current enemy AI is still under a foundation stage. It only has three different behaviors. The first one is pathfinding. Right now we are using the basic Dijkstra algorithm for pathfinding. The second behavior is movement. The enemy will follow the generated path. If the enemy’s path is blocked by a player character, it will automatically attack the player, which is the third behavior.
+
+<!-- more -->
+
+### Next Step
+
+&nbsp;&nbsp;&nbsp;&nbsp;Since we are still prototyping our mechanics, we didn’t pay much attention to the AI architecture. However, if we want to move on with adding behaviors to enemies, the current architecture is unfriendly for us to maintain. So our first step will be altering the AI architecture for these enemy units. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;After researching, we narrowed down the number of options to two. The first one is Finite State Machine(FSM). It’s one of the most basic but also most widely used AI architectures. Its advantage is that it’s easy to implement. Its drawback is, compared to other popular AI architectures, unfriendly to add behaviors when the scope gets big. With the number of behaviors increasing, the state transition will be more and more complicated.
+
+&nbsp;&nbsp;&nbsp;&nbsp;Another option will be using the GOAP architecture. GOAP, Goal-Oriented Action Planning, refers to a simplified STRIPS-like planning architecture specifically designed for real-time control of autonomous character behavior in games.[^fn1] It’s a widely used AI architecture in the industry. The advantage of GOAP is that it’s very easy to add behaviors to the enemies and easy to maintain. By merging the GOAP and FSM, it will be easy to create a system that’s convenient to maintain but can still have complicated behaviors. 
+
+
+[^fn1]:Orkin, Jeff. “WHAT Is GOAP?” Goal-Oriented Action Planning (GOAP), 2006. http://alumni.media.mit.edu/~jorkin/goap.html. 
