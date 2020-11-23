@@ -1,0 +1,76 @@
+---
+layout: post
+title:  "Audio Syncing, Part 1 - Defining The Term"
+date:   2020-11-20 13:34:56 -0500
+excerpt_separator: <!-- more -->
+banner: /assets/bit-to-beat_hit-zone.gif
+banner_alt: Gif of notes coming towards a hit zone
+---
+**Written by Michael Berger**
+
+&nbsp;&nbsp;&nbsp;&nbsp;Bit To Beat is a rhythm rogue-lite, where player actions, enemy attacks, and
+obstacle movements only happen to the beat of a song. Underneath the genre
+conventions, art style, and even the music itself lies a simple concept; Game
+actions that are tied to audio output, otherwise known as audio syncing. In
+today’s blog post, we will be talking about what audio syncing actually is,
+looking at how most games manage to implement their audio elements.
+
+<!-- more -->
+
+### Defining Audio Sync
+
+&nbsp;&nbsp;&nbsp;&nbsp;The first big step into getting audio syncing down is actually defining what is
+meant by the term, “Audio Syncing.” To do that, let’s take a look at what most
+video games have done for their audio needs.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ia8bhFoqkVE"
+frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
+gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+&nbsp;&nbsp;&nbsp;&nbsp;In **[Super Mario Bros.](https://en.wikipedia.org/wiki/Super_Mario_Bros.)** for
+the Nintendo Entertainment System (NES), the first
+thing that the player sees is a title screen with two options; “1 Player Game”
+and “2 Player Game”. After selecting either, the player is shown a transition
+screen and then thrust into World 1-1. The game immediately begins to play that
+catchy Ground Theme song. After becoming familiar with moving Mario back and
+forth, the player will eventually move to the right and encounter a Goomba
+enemy. In order for the player to progress past the enemy they need to make
+Mario jump, and when that happens a small sound effect is played to notify the
+player that Mario has jumped.
+
+&nbsp;&nbsp;&nbsp;&nbsp;Super Mario Bros. shows off how most games (both retro and modern) use their
+audio, mainly in an event-driven manner. For the music, the game performs its
+own sequence of actions and then plays the audio. For the jumping sound effect,
+the player performs an action on a controller, which is sent to the game to
+notify it that an action should happen (in this case, making Mario jump) and
+that a specific piece of audio must be played. As all games are interactive
+programs dependent on user input, this type of audio implementation is
+unavoidable and expected. There are many good reasons to include this type of
+audio in games, and there are many techniques that make event-driven audio
+appear natural and fluid throughout the player’s entire experience with a game.
+
+&nbsp;&nbsp;&nbsp;&nbsp;Audio syncing, then, takes audio a step further and has game events occur in
+time with sounds or music. Most traditional rhythm games (ex; **[Rock Band](https://www.giantbomb.com/rock-band/3025-567/)**
+and **[Dance Dance Revolution](https://en.wikipedia.org/wiki/Dance_Dance_Revolution)**)
+implement audio syncing in the form of tasking players
+to time their inputs against certain musical notes of a song, with the catch
+being that inputs are done via unconventional controllers (plastic instruments
+and dance pads respectively). However, this can be implemented in other ways.
+Revisiting the Super Mario series, the Beat Block Galaxy level of **[Super Mario
+Galaxy 2](https://en.wikipedia.org/wiki/Super_Mario_Galaxy_2)** tasks the
+player with navigating a series of platforms that disappear
+and reappear at steady intervals, which happen to perfectly coincide with every
+other measure of the 120 beats-per-minute song that plays in the background.
+This type of audio implementation, where game events (both handled by the
+application and expected from the player) is exactly what we wanted to use for
+Bit To Beat.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EN4X7x4w65Q?start=179"
+frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
+gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Next Time
+
+&nbsp;&nbsp;&nbsp;&nbsp;In the next blog post, we will be discussing how we achieved audio syncing in
+our game engine of choice, Unity, and some general tips concerning how we are
+achieving audio sync with music pieces.
