@@ -1,0 +1,78 @@
+---
+layout: post
+title:  "Audio Syncing, Part 2 - Unity Implementation"
+date:   2020-12-17 13:34:56 -0500
+excerpt_separator: <!-- more -->
+banner: /assets/bit-to-beat_hit-zone.gif
+banner_alt: Gif of notes coming towards a hit zone
+---
+**Written by Michael Berger**
+
+&nbsp;&nbsp;&nbsp;&nbsp;Bit To Beat is a rhythm rogue-lite, where player actions, enemy attacks, and
+obstacle movements only happen to the beat of a song. Underneath the genre
+conventions, art style, and even the music itself lies a simple concept; Game
+actions that are tied to audio output, otherwise known as audio syncing. In
+today’s blog post, we will be talking about how audio syncing is achieved in Bit
+To Beat.
+
+<!-- more -->
+
+### How To Perform Audio Syncing In Unity
+
+&nbsp;&nbsp;&nbsp;&nbsp;The first step towards implementing audio syncing is an
+obvious one; As a developer, you need to get the exact playback position of a
+piece of audio at any time. With that info it becomes possible to measure when
+in the span of an audio clip a game object is updating. In turn, that
+information makes it possible to update an object’s state (be that position,
+scale, rotation, etc.) relative to the playback of an audio clip. Without this
+playback tracking, the best an application could do would be to guess when the
+synced game actions are supposed to happen based on the computer time of when
+the request to play the audio was submitted.
+
+[![Unity's Audio Clip user interface](/assets/unity-audio-clip-ui.png)](https://docs.unity3d.com/2018.4/Documentation/Manual/class-AudioClip.html)
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;As Bit To Beat is being made with the [Unity](https://unity.com/) game engine,
+our first inclination was to rely on the `Time.time` and `Time.deltaTime` properties
+the core UnityEngine C# assembly provides. These properties track the time since
+the game application started and the change in time between every call of the
+`Update()` method respectively. These properties work perfectly fine when updating
+game object states based on computer time, but they quickly fall out of sync
+with playing audio. If you have been paying attention, you may already know what
+the problem is; The assembly properties are not tracking anything about the
+audio, they are tracking computer time. Audio playback is a high-priority task,
+so much so that the data comprising an audio file has to be processed separately
+from the rest of the application. This creates a separation from the execution
+time and audio time in any application, not just Unity. While not an issue for
+event-driven audio, this separation becomes an issue for game events that are
+supposed to be timed to audio clips. Thankfully, the developers of the Unity
+engine recognized this quirk and implemented a property in the [AudioModule](https://docs.unity3d.com/ScriptReference/UnityEngine.AudioModule.html)
+assembly called `AudioSettings.dspTime`, which tracks the current time of Unity’s
+audio systems. Replacing the core assembly functions referencing time with the
+digital signal processing time (dspTime) keeps all of our game objects synced to
+whatever audio clip our game is playing.
+
+[![Wikipedia diagram of Digital Signal Processing](/assets/wikipedia-dsp-diagram.png)](https://en.wikipedia.org/wiki/Digital_signal_processing)
+
+&nbsp;&nbsp;&nbsp;&nbsp;Since Bit To Beat is attempting to perform audio
+synchronization with relatively long pieces of recorded music (60 seconds or
+more), we decided that it would be useful to be able to convert song time
+(measured in [beats](https://en.wikipedia.org/wiki/Beat_%28music%29) and [measures](https://en.wikipedia.org/wiki/Bar_%28music%29)) to computer time (milliseconds and seconds).
+The ability to convert between specific beat measurements of a song to when
+those beats would occur in an application is not strictly necessary, but without
+it the timing of each gameplay note would be recorded as an incomprehensible
+number with a half-dozen integers after the decimal place. (By setting the
+timing of gameplay notes to song beats, the values can be represented as whole
+numbers and very decipherable decimals.) To do this conversion, only one key
+piece of information is needed; the [beats-per-minute (BPM)](https://en.wikipedia.org/wiki/Tempo) of the recorded music
+clip. With this, the position of a gameplay note in the song in terms of audio
+playback time can be easily determined. Additionally, keeping track of the
+length of a beat and the length of a measure can rapidly save some hassle later
+on if these calculations become a constant occurrence.
+
+### Next Time
+
+&nbsp;&nbsp;&nbsp;&nbsp;In the next blog post, we will be discussing several
+minor issues we have encountered with our audio syncing solution and the current
+workarounds we have implemented to eliminate / lessen their impact on the
+gameplay.
