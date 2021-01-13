@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "Inventory System Revision, Part 1"
-date:   2020-1-12 23:17:15 -0500
+date:   2021-1-12 23:17:15 -0500
 excerpt_separator: <!-- more -->
-banner: /assets/inventory-menu-par1.gif
+banner: /assets/inventory-menu-par1.png
 ---
 **Written by Jiayan Li**
 
@@ -26,7 +26,7 @@ banner: /assets/inventory-menu-par1.gif
 
 &nbsp;&nbsp;&nbsp;&nbsp;According to the document from Unity, this is a useful class when creating assets meant for storing data. In fact, in a built version of our game, each ScriptableObject only takes up around 1KB or storage data or even less, which is more than acceptable for large numbers of items. 
 
-[![ScriptableObject Items](/assets/inventory-system-part1.png)]
+![ScriptableObject Items](/assets/inventory-system-part1.png)
 
 &nbsp;&nbsp;&nbsp;&nbsp;In our current build, there is a base “Item” class, and there are several other classes (like the “Weapon” class and “Equipment” class) that inherit from the base class. In the future, this “Item” base class will be the foundation for us to add different item types.
 
