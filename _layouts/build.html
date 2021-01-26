@@ -1,70 +1,160 @@
+<!--
+==========================
+===== THEME WEB PAGE =====
+==========================
+-->
+
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | BitToBeat</title>
-    <link rel="shortcut icon" href="{{ site.baseurl }}/TemplateData/favicon.ico">
-    <link rel="stylesheet" href="{{ site.baseurl }}/TemplateData/style.css">
-  </head>
-  <body>
-    <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas"></canvas>
-      <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-          <div id="unity-progress-bar-full"></div>
+<html>
+<head>
+  <title>Bit To Beat - Web Build</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <style>
+    body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+    code
+    {
+      background-color: #CFCFCF;
+      padding: 0px 3px 0px 3px;
+    }
+  </style>
+</head>
+<body class="w3-light-grey">
+
+<!-- w3-content defines a container for fixed size centered content,
+and is wrapped around the whole page content, except for the footer in this example -->
+<div class="w3-content" style="max-width:1400px">
+
+<!-- Header -->
+<header class="w3-container w3-center w3-padding-32">
+  <h1><b>Bit To Beat</b></h1>
+  <p>Welcome to the blog of the newest voxel rhythm rogue-lite!</p>
+</header>
+
+<!-- Grid -->
+<div class="w3-row">
+
+<!-- Build -->
+<div class="w3-col l8 s12">
+  <div class="w3-card-4 w3-margin w3-white">
+    <div class="w3-container">
+      <h3><b>Web Build</b></h3>
+      <h5><span class="w3-opacity">Last Updated January 25th, 2021</span></h5>
+    </div>
+
+    <div class="w3-container">
+      <div id="unity-container" class="unity-desktop">
+        <canvas id="unity-canvas" margin="auto"></canvas>
+        <div id="unity-loading-bar">
+          <div id="unity-logo"></div>
+          <div id="unity-progress-bar-empty">
+            <div id="unity-progress-bar-full"></div>
+          </div>
+        </div>
+        <div id="unity-footer">
+          <div id="unity-webgl-logo"></div>
+          <div id="unity-fullscreen-button"></div>
+          <div id="unity-build-title"></div>
         </div>
       </div>
-      <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">BitToBeat</div>
+      <script>
+        var buildUrl = "{{ site.baseurl }}/Build";
+        var loaderUrl = buildUrl + "/A03_WebGL.loader.js";
+        var config = {
+          dataUrl: buildUrl + "/A03_WebGL.data",
+          frameworkUrl: buildUrl + "/A03_WebGL.framework.js",
+          codeUrl: buildUrl + "/A03_WebGL.wasm",
+          streamingAssetsUrl: "StreamingAssets",
+          companyName: "DefaultCompany",
+          productName: "BitToBeat",
+          productVersion: "0.1",
+        };
+
+        var container = document.querySelector("#unity-container");
+        var canvas = document.querySelector("#unity-canvas");
+        var loadingBar = document.querySelector("#unity-loading-bar");
+        var progressBarFull = document.querySelector("#unity-progress-bar-full");
+        var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+          container.className = "unity-mobile";
+          config.devicePixelRatio = 1;
+        } else {
+          canvas.style.width = "640px";
+          canvas.style.height = "360px";
+        }
+        loadingBar.style.display = "block";
+
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+          createUnityInstance(canvas, config, (progress) => {
+            progressBarFull.style.width = 100 * progress + "%";
+          }).then((unityInstance) => {
+            loadingBar.style.display = "none";
+            fullscreenButton.onclick = () => {
+              unityInstance.SetFullscreen(1);
+            };
+          }).catch((message) => {
+            alert(message);
+          });
+        };
+        document.body.appendChild(script);
+      </script>
+      <div>
+        <h3><b>Update Log</b></h3>
+        <h5>January 25th, 2021:</h5>
+        <ul>
+          <li>Contains hub world with two NPCs</li>
+          <li>Contains two test levels and one full level</li>
+          <li>Includes four weapons</li>
+          <li>Contains one song with notes</li>
+        </ul>
       </div>
     </div>
-    <script>
-      var buildUrl = "{{ site.baseurl }}/Build";
-      var loaderUrl = buildUrl + "/A03_WebGL.loader.js";
-      var config = {
-        dataUrl: buildUrl + "/A03_WebGL.data",
-        frameworkUrl: buildUrl + "/A03_WebGL.framework.js",
-        codeUrl: buildUrl + "/A03_WebGL.wasm",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
-        productName: "BitToBeat",
-        productVersion: "0.1",
-      };
+  </div>
+<!-- END BLOG ENTRIES -->
+</div>
 
-      var container = document.querySelector("#unity-container");
-      var canvas = document.querySelector("#unity-canvas");
-      var loadingBar = document.querySelector("#unity-loading-bar");
-      var progressBarFull = document.querySelector("#unity-progress-bar-full");
-      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+<!-- Introduction menu -->
+<div class="w3-col l4">
+  <!-- About Card -->
+  <div class="w3-card w3-margin w3-margin-top">
+    {% include about-card.html %}
+  </div><hr>
 
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        container.className = "unity-mobile";
-        config.devicePixelRatio = 1;
-      } else {
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
-      }
-      loadingBar.style.display = "block";
+  <!-- Posts -->
+  <div class="w3-card w3-margin">
+    {% include navigation-menu.html %}
+  </div>
+  <hr>
 
-      var script = document.createElement("script");
-      script.src = loaderUrl;
-      script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
-        }).then((unityInstance) => {
-          loadingBar.style.display = "none";
-          fullscreenButton.onclick = () => {
-            unityInstance.SetFullscreen(1);
-          };
-        }).catch((message) => {
-          alert(message);
-        });
-      };
-      document.body.appendChild(script);
-    </script>
-  </body>
+  <!-- Labels / tags -->
+  <div class="w3-card w3-margin">
+    <div class="w3-container w3-padding">
+      <h4>Tags</h4>
+    </div>
+    <div class="w3-container w3-white">
+    <p><span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Games</span>
+    </p>
+    </div>
+  </div>
+
+<!-- END Introduction Menu -->
+</div>
+
+<!-- END GRID -->
+</div><br>
+
+<!-- END w3-content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp">w3.css</a> and <a href="https://jekyllrb.com/">Jekyll</a></p>
+</footer>
+
+</body>
 </html>

@@ -37,3 +37,19 @@ and unique as possible.
 &nbsp;&nbsp;&nbsp;&nbsp;Aside from his technical mastery, William heavily enjoys
 the Monster Hunter series. Other recent addictions include Hideo Kojima’s Death
 Stranding and the multiplayer battle arena Heroes of the Storm.
+
+#### **Will Bertiz**
+<img src="/assets/will-bertiz.jpg" alt="Picture of Will Bertiz" style="width:60%;">
+
+&nbsp;&nbsp;&nbsp;&nbsp;Will is the composer for From Nothing, making music for
+the team and all their rhythm-based needs. As a lover of music and games from a
+young age, Will is very passionate about game audio and all the intricacies that
+come along with it.
+
+&nbsp;&nbsp;&nbsp;&nbsp;Speaking of games, Will’s favorite games include those
+from the Persona and Fire Emblem series. He’s also poured an ungodly amount of
+hours into Stardew Valley and Factorio in a disturbingly short amount of time.
+
+[[Will Bertiz's Portfolio Website]](https://www.willbertiz.com/)
+
+[[Will Bertiz's Soundcloud]](https://soundcloud.com/docmrsir)
