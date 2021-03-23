@@ -1,0 +1,32 @@
+---
+layout: post
+title:  "Enemy AI, Part 2"
+date:   2021-3-23 10:44:15 -0000
+excerpt_separator: <!-- more -->
+banner: /assets/BTB_ScreenShot_Logo_01.jpg
+---
+**Written by Jiayan Li**
+
+&nbsp;&nbsp;&nbsp;&nbsp;In the previous log about enemies’ AI, we’ve discussed the differences between the Goal-Oriented Action Planning(GOAP) and the Finite State Machine(FSM). Now we understand that GOAP architecture is suitable for the enemies with complex behaviors / states, while a FSM is often used in an architecture with relatively simple transitions between states. In this log, we will discuss our choice between these two AI architectures and why.
+
+<!-- more -->
+
+### Gnath
+
+&nbsp;&nbsp;&nbsp;&nbsp;Recently, we redesigned the enemies in our game. After much discussion, we decided to start with implementing the enemy we have named the, “Gnath.”
+The Gnath enemy has three different states: The Random state, the Target state and the Flee state. The enemy starts in the Random state. In this state, the Gnath will just wander around on the map with no specific destination. It will keep itself in Random state until it has detected the player character is within a certain range. Then, it will transition to the Target state, where the Gnath will begin moving to the player character’s position and attack them. During the target state, if this Gnath gets attacked by another character, it will transition to the Flee state and try to run away from the attacker. After several beats, It will go back to the Target state.
+As you can see, the Gnath enemy has relatively simple AI and it doesn’t have any other optional actions. The conditions between each state are also very straightforward. In that case, it’s not necessary to implement a GOAP architecture since it’s much more complicated to implement than an FSM. For these reasons, we decided to implement this AI based on FSM.
+
+
+### State Implementation
+
+&nbsp;&nbsp;&nbsp;&nbsp;To implement a FSM, we needed to first create a State interface. All the other specific States should derive from the base interface. For our game, the State class should have following feature:
+1. A DoState function. The DoState function is the actual function an enemy character calls at every beat. For each State, the DoStacte function returns to a specific Action, like move, attack or stay still.
+2. A Condition function. The Condition function is used after executing the DoState function. In order to make the State flexible for all of our enemies, us developers should be able to easily change and modify this state function. So, to that end we decided to pass in a Func<//bool> as one of the parameters. We call this specific Condition function from different places depending upon the  enemy.
+3. A NextState function. Once the Condition function returns true, it’s time for the enemy to transit to the next State. Like with the Condition function, we use a Func parameter to determine the following State.
+
+The final interface looks like this:
+![State interface](/assets/enemy-Ai-part2.jpg)
+
+### Next Time
+For the next devlog, we will discuss the actual implementation for each State, and how we tackle enemy ghost movement with the FSM.
